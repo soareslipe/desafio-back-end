@@ -16,6 +16,7 @@ import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilde
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.transform.Range;
+import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
@@ -83,6 +84,11 @@ public class BatchConfig {
 						:tipo, :data, :valor, :cpf, :cartao,
 						:hora, :donoLoja, :nomeLoja)
 						""").beanMapped().build();
+	}
+	
+	@Bean
+	static BeanDefinitionRegistryPostProcessor jobRegistryBeanPostProcessorRemover() {
+	  return registry -> registry.removeBeanDefinition("jobRegistryBeanPostProcessor");
 	}
 
 }
